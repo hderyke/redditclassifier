@@ -2,10 +2,16 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
 import torch
+import numpy as np
 
 # Load your dataset
 df = pd.read_csv('../data/posts.csv')
-pd.set_option('display.max_colwidth', None)
+
+# Exclude rows where the 'Label' column is equal to 'Label'
+df = df[df['Label'] != 'Label']
+
+# Convert the 'Label' column to integer type
+df['label'] = df['Label'].astype(int)
 
 # Combine title and body for the text feature
 df['text'] = df['Title'] + " " + df['Body']
@@ -30,7 +36,6 @@ X_train, X_test, y_train, y_test = train_test_split(df['text'], df['label'], tes
 
 # Load pre-trained BERT tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-#tokenizer = BertTokenizer.from_pretrained('../saved_model')
 
 # Tokenize the data
 train_encodings = tokenizer(list(map(str, X_train.tolist())), truncation=True, padding=True, max_length=128)
@@ -58,13 +63,13 @@ model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_l
 
 # Define training arguments
 training_args = TrainingArguments(
-    output_dir='../results',
+    output_dir='./results',
     num_train_epochs=3,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
     warmup_steps=500,
     weight_decay=0.01,
-    logging_dir='../logs',
+    logging_dir='./logs',
     logging_steps=10,
 )
 
@@ -78,11 +83,10 @@ trainer = Trainer(
 
 # Train the model
 trainer.train()
+print("Training complete.")
 
 # Evaluate the model
-eval_results = trainer.evaluate()
-print("Evaluation results:")
-print(eval_results)
+print(trainer.evaluate())
 
 # Save the model and tokenizer for future use
 model.save_pretrained('../saved_model')
