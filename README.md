@@ -32,7 +32,7 @@ Ensure you have all the dependendcies needed to run these scripts. Use the  ``` 
 
 ``` pip install -r requirements.txt ```
 
-Once you have installed the dependencies, you're are ready to run the scripts in the ``` src ``` directory.
+Once you have installed the dependencies, you're ready to run the scripts in the ``` src ``` directory.
 
 ```cd src```
 
