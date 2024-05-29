@@ -28,11 +28,11 @@ Start by cloning this repository and moving to the src directory with our script
 
 
 ### Installing dependencies
-Ensure you have all the dependendcies needed to run these scripts. Use the  ``` pip ``` command to help
+Ensure you have all the dependendcies needed to run these scripts. Use the  ``` pip ``` command to help.
 
 ``` pip install -r requirements.txt ```
 
-Once you have intealled the dependendencies your are ready to run the scripts in the ``` src ``` directory
+Once you have installed the dependendencies, you're are ready to run the scripts in the ``` src ``` directory.
 
 ```cd src```
 
