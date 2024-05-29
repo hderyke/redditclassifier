@@ -1,5 +1,5 @@
 # redditclassifier
-These scripts provide a straightforward method to create powerful models that perform binary classification on Reddit post
+These scripts provide a straightforward method to create powerful models that perform binary classification on Reddit posts.
 
 ## Language
 These scripts are written in Python.
@@ -40,13 +40,13 @@ Once you have intealled the dependendencies your are ready to run the scripts in
 ## Functions
 
 ### scraper.py
-Collect posts from specified Reddit page and has the user maunally them. Labeled data is appended to the ```data/posts.csv``` file. Uses the Reddit API to get posts- requires the user have their own Reddit API key.
+Collect posts from specified Reddit page and has the user maunally them. Labeled data is appended to the ```data/posts.csv``` file. Uses the Reddit API to get posts- requires the user have their own Reddit API key. Simply run ```python scraper.py```.
 
 ### trainer.py
-Trains a default BERT classification model on the data in posts.csv. Outputs a working model as well as logs. Can be ran by
+Trains a default BERT classification model on the data in posts.csv. Outputs a working model as well as logs. Simply run ```python trainer.py```.
 
 ### classifier.py
-Classifier that uses the trained model created by ```trainer.py```. Run the command ```classifier.py {subbreddit_name}, {n/o days}``` to get targeted posts from the subbreddit defined in the first argument and the number of days back defined by the second argument.
+Classifier that uses the trained model created by ```trainer.py```. Run the command; ```python classifier.py {subbreddit_name}, {n/o days}``` to get targeted posts from the subbreddit defined in the first argument and the number of days back defined by the second argument.
 
 
 
