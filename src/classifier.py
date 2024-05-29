@@ -69,5 +69,4 @@ for text in prompts:
     if pred_0_first > pred_last_second:
         continue
     else:
-        print("Target post")
         print(text)
