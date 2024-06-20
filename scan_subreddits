@@ -1,0 +1,44 @@
+#!/bin/bash
+
+############ parameters ###########################
+cities=("indianapolis" "cincinnati" "flint" "pensacola")
+ndays=2
+daylight=1
+emails=( "hderyke59@gmail.com")
+####################################################
+
+# Get the current time
+utc_timestamp=$(date -u +%s)
+est_offset=$(( (5 - daylight) * 3600 ))
+est_timestamp=$(( utc_timestamp - est_offset ))
+est_time=$(date -d "@${est_timestamp}" "+%Y-%m-%d %H:%M:%S")
+
+# Change to the src directory, exit if it fails
+cd /root/redditclassifier/src || { echo "Failed to change directory to src"; exit 1; }
+
+hours=$((${ndays} * 24))
+
+# Construct the email message header
+echo "Reddit posts of interest from the last ${hours} hours: (${est_time})" > ../mail.txt
+echo "----------------------------------------------------------------------------------------" >> ../mail.txt
+
+for city in "${cities[@]}"
+do
+  echo "r/${city}" >> ../mail.txt
+  echo "---------------------------------------------------------------------------------------" >> ../mail.txt
+
+  # Run the classifier.py with the city and ndays as arguments and append the output to mail.txt
+  python3 classifier.py "${city}" "${ndays}" >> ../mail.txt
+  
+  echo "---------------------------------------------------------------------------------------" >> ../mail.txt
+  echo ""
+done
+
+# Run sendmail.py to send to each recipient
+for email in "${emails[@]}"
+do
+  python3 sendmail.py ../mail.txt "${email}"
+done
+
+# Remove mail.txt after sending
+rm ../mail.txt
