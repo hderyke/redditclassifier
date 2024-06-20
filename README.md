@@ -1,7 +1,7 @@
 # redditclassifier
 These scripts provide a straightforward method to create powerful models that perform binary classification on Reddit posts, as well as a script for emailing targeted posts to specified recipients.
 ## Language
-These scripts are written in Python. Python 3.12 or higer is required.
+These scripts are written in Python. Python 3.12 or higher is required.
 
 ## Dependencies
 Dependencies can be found in the requirements.txt folder. Please install all dependencies before using these scripts.
