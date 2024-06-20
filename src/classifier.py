@@ -7,9 +7,11 @@ from transformers import BertForSequenceClassification, BertTokenizer
 import torch
 
 #classifier. Usage: python classifier.py {subreddit name} {n/o days to scan}
+urls = []
+
 
 def fetch_posts(subreddit_name,days): #get posts given subreddit name and no days
-    print("Scanning the "+subreddit_name+" subreddit from the last "+days+" days")
+    #print("Scanning the "+subreddit_name+" subreddit from the last "+days+" days")
 
     reddit = praw.Reddit(
         client_id='6QfzZm6XRYDKE7Kj_An9EA',
@@ -18,7 +20,6 @@ def fetch_posts(subreddit_name,days): #get posts given subreddit name and no day
     )
 
     all_posts = []
-
     # Calculate the timestamp for the start of the desired time period
     end_time = datetime.now()
     days = int(days)
@@ -33,6 +34,7 @@ def fetch_posts(subreddit_name,days): #get posts given subreddit name and no day
         if start_time <= post_created_time <= end_time:
             combined_text = f"{post.title} {post.selftext}"
             all_posts.append(combined_text)
+            urls.append(post.url)
 
     return all_posts
 
@@ -52,6 +54,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 # Preprocess the new data
 # test prompts
+i = 0
 for text in prompts:
     inputs = tokenizer(text, truncation=True, padding=True, max_length=128, return_tensors="pt")
 
@@ -64,9 +67,10 @@ for text in prompts:
     #print(predictions)
     pred_0_first = predictions[0][0].item()
     pred_last_second = predictions[-1][1].item()
-
     # safely compare these values
     if pred_0_first > pred_last_second:
+        i += 1
         continue
     else:
-        print(text)
+        print(text,urls[i])
+    i += 1
