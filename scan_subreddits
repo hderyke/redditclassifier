@@ -1,10 +1,10 @@
 #!/bin/bash
 
 ############ parameters ###########################
-cities=("indianapolis" "cincinnati" "flint" "pensacola")
+cities=("indianapolis")
 ndays=2
 daylight=1
-emails=( "hderyke59@gmail.com")
+emails=()
 ####################################################
 
 # Get the current time
