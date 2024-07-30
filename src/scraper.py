@@ -7,8 +7,8 @@ import praw
 #scrape posts from a reddit page and manually label them, add data to csv file
 
 # Define the subreddit and number of posts to fetch
-subreddit_names = ['Pensacola']
-keywords = ['rec sports','rec league','intramural']
+subreddit_names = [] 
+keywords = []
 number_of_posts = 5000
 
 def fetch_posts(reddit, subreddits, limit=10000, keywords=None):
@@ -42,9 +42,9 @@ def fetch_posts(reddit, subreddits, limit=10000, keywords=None):
 
 # Initialize the Reddit client
 reddit = praw.Reddit(
-    client_id='6QfzZm6XRYDKE7Kj_An9EA',
-    client_secret='jAkuGVm4uL0XDM6LKrEoAvz2oqTnKA',
-    user_agent='my_reddit_scraper/0.1 by hderyke59'
+    client_id='',
+    client_secret='', ##ENTER YOUR API CREDENTIALS
+    user_agent=''
 )
 
 # Fetch posts from the subreddit
